@@ -10,6 +10,11 @@ config_version=5
 
 [application]
 
-config/name="offsec-wizard"
-config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+config/name="BartekMieczykowski"
+run/main_scene="res://scenes/player.tscn"
+config/features=PackedStringArray("4.3", "Mobile")
+config/icon="res://art/pixelArts/icon.svg"
+
+[rendering]
+
+renderer/rendering_method="mobile"
