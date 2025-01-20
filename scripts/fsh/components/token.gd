@@ -1,13 +1,37 @@
 extends Node
 class_name Token
 
+enum Operator {
+	Addition,			# +
+	Substraction,		# -
+	Multiplication,		# *
+	Division			# /
+}
+
+enum TokenType {
+	Identifier,			# __function__ x y 
+	Integer,			# 5
+	Float,				# 6.8
+
+	Operator,			# Operator enum
+	OParen,				# (
+	CParen,				# )
+	OCParen,			# {
+	CCParen,			# }
+	OSParen,			# [
+	CSParen,			# ]
+	
+	SemiColon,			# ;
+	Pipe,				# |
+	LBracket,			# <
+	RBracket,			# >
+}
+
+var type: TokenType
+var operator: Operator	# nullable
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _init(type, operator=null):
+	type = type
+	operator = operator
+	self
