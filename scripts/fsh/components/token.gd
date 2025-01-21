@@ -2,9 +2,9 @@ extends Node
 class_name Token
 
 
-var type
+var type				# defined by TokenType in `tokenizer.gd`
 var value				# any (String, Int, Null, depends ok TokenType)
-var operator			# nullable
+var operator			# defined by Operator in `tokenizer.gd`
 
 
 func _init(ptype, pvalue, poperator):
