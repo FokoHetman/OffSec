@@ -30,6 +30,8 @@ enum TokenType {
 	
 	Quote,				# "
 	LQuote,				# '
+	
+	EOF,				# End Of File/Input
 }
 
 enum TokenizerError {
@@ -128,4 +130,5 @@ func tokenize(code: String):
 
 		if removable:
 			chars.remove_at(0)
+	tokens.append(Token.new(TokenType.EOF, null, null))
 	return [true, tokens]
