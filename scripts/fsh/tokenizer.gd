@@ -1,12 +1,14 @@
 @tool
 extends Node
-class_name Tokenizer
+class_name FSHTokenizer
 
 enum Operator {
 	Addition,			# +
 	Substraction,		# -
 	Multiplication,		# *
-	Division			# /
+	Division,			# /
+	Equals,				# =
+	Comparision,		# ==
 }
 
 enum TokenType {
@@ -55,33 +57,33 @@ func tokenize(code: String):
 		var removable = true
 		match chars[0]:
 			"<":
-				tokens.append(Token.new(TokenType.RBracket, null, null))
+				tokens.append(FSHToken.new(TokenType.RBracket, null, null))
 			">":
-				tokens.append(Token.new(TokenType.RBracket, null, null))
+				tokens.append(FSHToken.new(TokenType.RBracket, null, null))
 			"|":
-				tokens.append(Token.new(TokenType.Pipe, null, null))
+				tokens.append(FSHToken.new(TokenType.Pipe, null, null))
 			";":
-				tokens.append(Token.new(TokenType.SemiColon, null, null))
+				tokens.append(FSHToken.new(TokenType.SemiColon, null, null))
 			"]":
-				tokens.append(Token.new(TokenType.CSParen, null, null))
+				tokens.append(FSHToken.new(TokenType.CSParen, null, null))
 			"[":
-				tokens.append(Token.new(TokenType.OSParen, null, null))
+				tokens.append(FSHToken.new(TokenType.OSParen, null, null))
 			"}":
-				tokens.append(Token.new(TokenType.CCParen, null, null))
+				tokens.append(FSHToken.new(TokenType.CCParen, null, null))
 			"{":
-				tokens.append(Token.new(TokenType.OCParen, null, null))
+				tokens.append(FSHToken.new(TokenType.OCParen, null, null))
 			")":
-				tokens.append(Token.new(TokenType.CParen, null, null))
+				tokens.append(FSHToken.new(TokenType.CParen, null, null))
 			"(":
-				tokens.append(Token.new(TokenType.OParen, null, null))
+				tokens.append(FSHToken.new(TokenType.OParen, null, null))
 			"+":
-				tokens.append(Token.new(TokenType.Operator, null, Operator.Addition))
+				tokens.append(FSHToken.new(TokenType.Operator, null, Operator.Addition))
 			"-":
-				tokens.append(Token.new(TokenType.Operator, null, Operator.Substraction))
+				tokens.append(FSHToken.new(TokenType.Operator, null, Operator.Substraction))
 			"*":
-				tokens.append(Token.new(TokenType.Operator, null, Operator.Multiplication))
+				tokens.append(FSHToken.new(TokenType.Operator, null, Operator.Multiplication))
 			"/":
-				tokens.append(Token.new(TokenType.Operator, null, Operator.Division))
+				tokens.append(FSHToken.new(TokenType.Operator, null, Operator.Division))
 			"\"":
 				chars.remove_at(0)
 				var buffer = ""
@@ -90,7 +92,7 @@ func tokenize(code: String):
 					chars.remove_at(0)
 					if len(chars)==0:
 						return [false, TokenizerError.UnmatchedQuote]
-				tokens.append(Token.new(TokenType.String, buffer, null))
+				tokens.append(FSHToken.new(TokenType.String, buffer, null))
 			"\'":
 				chars.remove_at(0)
 				var buffer = ""
@@ -99,7 +101,7 @@ func tokenize(code: String):
 					chars.remove_at(0)
 					if len(chars)==0:
 						return [false, TokenizerError.UnmatchedQuote]
-				tokens.append(Token.new(TokenType.String, buffer, null))
+				tokens.append(FSHToken.new(TokenType.String, buffer, null))
 			_:
 				if chars[0].is_valid_int():
 					var buffer = chars[0]
@@ -113,9 +115,9 @@ func tokenize(code: String):
 						while len(chars)>0 && (buffer+chars[0]).is_valid_float():
 							buffer += chars[0]
 							chars.remove_at(0)
-						tokens.append(Token.new(TokenType.Float, float(buffer), null))
+						tokens.append(FSHToken.new(TokenType.Float, float(buffer), null))
 					else:
-						tokens.append(Token.new(TokenType.Integer, int(buffer), null))
+						tokens.append(FSHToken.new(TokenType.Integer, int(buffer), null))
 					removable = false
 
 
@@ -126,9 +128,9 @@ func tokenize(code: String):
 						buffer += chars[0]
 						chars.remove_at(0)
 					removable = false
-					tokens.append(Token.new(TokenType.Identifier, buffer, null))
+					tokens.append(FSHToken.new(TokenType.Identifier, buffer, null))
 
 		if removable:
 			chars.remove_at(0)
-	tokens.append(Token.new(TokenType.EOF, null, null))
+	tokens.append(FSHToken.new(TokenType.EOF, null, null))
 	return [true, tokens]

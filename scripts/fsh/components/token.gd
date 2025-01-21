@@ -1,5 +1,5 @@
 extends Node
-class_name Token
+class_name FSHToken
 
 
 var type				# defined by TokenType in `tokenizer.gd`
