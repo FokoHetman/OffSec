@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2wwwniy3cmr2"]
+
+[ext_resource type="Texture2D" uid="uid://dt0y5p5i8yoar" path="res://art/player_room.png" id="1_afsfx"]
+[ext_resource type="Script" path="res://scripts/rooms/PlayerRoom.gd" id="2_jrk4w"]
+[ext_resource type="Texture2D" uid="uid://chmgq72wlupqd" path="res://art/temp_obraz.png" id="3_ebyr0"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("2_jrk4w")
+
+[node name="PlayerRoom" type="Sprite2D" parent="."]
+position = Vector2(576, 324)
+scale = Vector2(4.48249, 3.95122)
+texture = ExtResource("1_afsfx")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(158, 531)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(-4, -3, 96, -1, 218, 13, 644, 17, 798, -10, 780, -148, 780, -265, 740, -266, 741, -296, 519, -303, 522, -279, 474, -275, 472, -317, 439, -321, 435, -334, 316, -345, 143, -345, 138, -321, 12, -306, 4, -165, -5, -97, -4, -3, -110, 84, -103, -515, 872, -509, 886, 79, -110, 85)
+
+[node name="TempObraz" type="Sprite2D" parent="."]
+position = Vector2(439, 125)
+scale = Vector2(0.0870196, 0.0808729)
+texture = ExtResource("3_ebyr0")
+offset = Vector2(18.635, 1.35706)
