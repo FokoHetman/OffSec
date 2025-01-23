@@ -6,8 +6,11 @@ enum NodeKind {
 	Program,			# defined in `program.gd`
 	Identifier,			# defined in `identifier.gd`
 	BinaryOperation,	# defined in `binop.gd`
+	Declaration,		# defined in `declaration.gd`
+	
 	Integer,			# literal int
 	Float,				# literal float
+	String,				# literal string
 }
 
 enum ParserError {
@@ -40,14 +43,22 @@ func parse(p_tokens):
 	return result
 
 func parseSTMT():
-	var left = parse_additive_expr()
+	var left = parse_multiplicative_expr()
 	if tokens[0].type==tokenizer.TokenType.Operator && tokens[0].operator==tokenizer.Operator.Equals:
-		pass
+		var operator = eat().operator
+		left = FSHNode.new(NodeKind.Declaration, FSHDeclaration.new(left, parse_multiplicative_expr()))
+	return left
+
+func parse_multiplicative_expr():
+	var left = parse_additive_expr()
+	while tokens[0].type==tokenizer.TokenType.Operator && tokens[0].operator in [tokenizer.Operator.Multiplication, tokenizer.Operator.Division]:
+		var operator = eat().operator
+		left = FSHNode.new(NodeKind.BinaryOperation, FSHBinaryOperation.new(left, parse_additive_expr(), operator))
 	return left
 
 func parse_additive_expr():
 	var left = parse_primary_expr()
-	while tokens[0].type==tokenizer.TokenType.Operator && tokens[0].operator==tokenizer.Operator.Addition:
+	while tokens[0].type==tokenizer.TokenType.Operator && tokens[0].operator in [tokenizer.Operator.Addition, tokenizer.Operator.Substraction]:
 		var operator = eat().operator
 		left = FSHNode.new(NodeKind.BinaryOperation, FSHBinaryOperation.new(left, parse_primary_expr(), operator))
 	return left
@@ -55,6 +66,14 @@ func parse_additive_expr():
 func parse_primary_expr():
 	var eat = eat()
 	match eat.type:
+		tokenizer.TokenType.String:
+			return FSHNode.new(NodeKind.String, eat.value)
+		tokenizer.TokenType.Identifier:
+			var children = []
+			while !(at().type in [tokenizer.TokenType.EOF, tokenizer.TokenType.SemiColon, tokenizer.TokenType.Operator]):
+				children.append(self.parse_multiplicative_expr())# -- I have no idea what should be there actually
+			#children.kill() -- don't
+			return FSHNode.new(NodeKind.Identifier, FSHIdentifier.new(eat.value, children))
 		tokenizer.TokenType.Float:
 			return FSHNode.new(NodeKind.Float, eat.value)
 		tokenizer.TokenType.Integer:
