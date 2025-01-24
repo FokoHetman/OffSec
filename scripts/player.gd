@@ -24,9 +24,15 @@ func jump(timer) -> void:
 	move_and_slide()
 	print(stage)
 	
+var running = 0
 
 func player_movement(delta):
 	
+	if Input.is_key_pressed(KEY_SHIFT):
+		running = 2000
+	else:
+		running = 0
+		
 	if not jumping:
 		if Input.is_key_pressed(KEY_SPACE):
 			stage = 0
@@ -38,21 +44,27 @@ func player_movement(delta):
 			add_child(timer)
 			$CollisionShape2D.set_deferred("disabled",true)
 			jumping = true
-		elif Input.is_action_pressed("ui_right"):
-			velocity.x = SPEED*delta
+			
+		elif Input.is_key_pressed(KEY_D):
+			velocity.x = SPEED*delta+running
 			velocity.y = 0
-		elif Input.is_action_pressed("ui_left"):
-			velocity.x = -SPEED*delta
+			
+		elif Input.is_key_pressed(KEY_A):
+			velocity.x = -SPEED*delta-running
 			velocity.y = 0
-		elif Input.is_action_pressed("ui_up"):
+			
+		elif Input.is_key_pressed(KEY_W):
 			velocity.x = 0
-			velocity.y = -SPEED*delta
-		elif Input.is_action_pressed("ui_down"):
+			velocity.y = -SPEED*delta-running
+			
+		elif Input.is_key_pressed(KEY_S):
 			velocity.x = 0
-			velocity.y = SPEED*delta
+			velocity.y = SPEED*delta+running
+			
 		else:
 			velocity.x = 0
 			velocity.y = 0
+			
 	else:
 		velocity.x = 0
 		velocity.y = 0

@@ -22,4 +22,3 @@ func fall(timer):
 	else:
 		get_parent().position.y+=3
 	stage += 1
-
