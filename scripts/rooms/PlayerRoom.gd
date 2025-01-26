@@ -12,8 +12,8 @@ func _ready():
 		var instance = dialog.instantiate()
 		add_child(instance)
 		instance.dialog([
-			["Jan Kowalski", "Helloo Thererere!!!!!!", load("res://art/portrait.png")],
-			["Player", "Helloo Thererere!!!!!!", load("res://art/patyczak.png")],
-			["Jan Kowalski", "Helloo Thererere!!!!!!", load("res://art/portrait.png")],
+			["Jan Kowalski", "Kwestia1", load("res://art/portrait.png")],
+			["Player", "Odpowiedź", load("res://art/patyczak.png")],
+			["Jan Kowalski", "Kwestia2", load("res://art/portrait.png")],
 		])
 	#write("Jan Kowalski", "hello there!!!!!!!!!!")

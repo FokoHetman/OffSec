@@ -4,9 +4,13 @@ var delay = 0.1
 var cursor = 0
 var text = ""
 
+
+
+
 func _ready():
 	$CanvasLayer/Title.add_theme_font_size_override("font_size", 20)
 	#write("Jan Kowalski", "hello there!!!!!!!!!!")
+	$CanvasLayer/Ok.connect("button_up", Callable(self, "next"))
 
 var  data = []
 func dialog(p_data):
