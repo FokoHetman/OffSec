@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://2kbjw3j58owh"]
+
+[ext_resource type="Texture2D" uid="uid://bx8xtll1iw7ig" path="res://art/dialogue.png" id="1_0uwx6"]
+[ext_resource type="Script" path="res://scripts/dialog.gd" id="1_yfclp"]
+
+[node name="Dialog" type="Node2D"]
+script = ExtResource("1_yfclp")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(575, 132)
+scale = Vector2(1.84, 1.12)
+texture = ExtResource("1_0uwx6")
+
+[node name="Title" type="Label" parent="CanvasLayer"]
+offset_left = 302.0
+offset_top = 37.0
+offset_right = 491.0
+offset_bottom = 72.0
+text = "The Dud"
+
+[node name="Text" type="Label" parent="CanvasLayer"]
+offset_left = 271.0
+offset_top = 76.0
+offset_right = 850.0
+offset_bottom = 208.0
