@@ -4,17 +4,22 @@
 [ext_resource type="Texture2D" uid="uid://dh3bebt3xcsvp" path="res://art/patyczak.png" id="2_dd1ax"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cyidf"]
-size = Vector2(51, 100.5)
+size = Vector2(52, 101)
 
 [node name="player" type="CharacterBody2D"]
 position = Vector2(446, 249)
 script = ExtResource("1_vcbpn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(44, 91)
+position = Vector2(65, 57.5)
 shape = SubResource("RectangleShape2D_cyidf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(46, 89)
+position = Vector2(66, 62)
 scale = Vector2(2.1875, 2.1875)
 texture = ExtResource("2_dd1ax")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.314
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
