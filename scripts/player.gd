@@ -10,11 +10,10 @@ func _physics_process(delta):
 var can_move = false
 
 # feedback request!!
-var jumping = false
 var stage = 0
 func jump(timer) -> void:
 	if stage>40:
-		jumping = false
+		can_move = true
 		timer.queue_free()
 		$CollisionShape2D.set_deferred("disabled",false)
 	elif stage>20:
@@ -28,14 +27,13 @@ var running = false
 var last_movement = false		# false - x; true - y
 
 func player_movement(delta):
-	if !can_move:
-		return
 	if Input.is_key_pressed(KEY_SHIFT):
 		running = true
 	else:
 		running = false
-		
-	if not jumping:
+	
+	
+	if can_move:
 		if Input.is_key_pressed(KEY_SPACE):
 			stage = 0
 			var timer := Timer.new()
@@ -45,7 +43,7 @@ func player_movement(delta):
 			timer.connect("timeout", Callable(self, "jump").bind(timer))
 			add_child(timer)
 			$CollisionShape2D.set_deferred("disabled",true)
-			jumping = true
+			can_move = false
 		elif Input.is_key_pressed(KEY_W) || Input.is_key_pressed(KEY_S)|| Input.is_key_pressed(KEY_A)|| Input.is_key_pressed(KEY_D):
 			var dy = int(Input.is_key_pressed(KEY_S)) - int(Input.is_key_pressed(KEY_W))  # zmiana w x = WCIŚNIĘTY W - WCIŚNIĘTY S (W = 1; S = -1; W+S=0)
 			var dx = int(Input.is_key_pressed(KEY_D)) - int(Input.is_key_pressed(KEY_A)) # zmiana w y = WCIŚNIĘTY A - WCIŚNIĘTY D (A = 1; D = -1; A+D=0)
