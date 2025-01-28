@@ -13,8 +13,12 @@ func _ready():
 	$CanvasLayer/Ok.connect("button_up", Callable(self, "next"))
 
 var  data = []
-func dialog(p_data):
+var player
+func dialog(p_data, p_player):
 	data = p_data
+	if p_player:
+		player = p_player
+		player.can_move = false
 	next()
 
 func next():
@@ -23,6 +27,8 @@ func next():
 		$CanvasLayer/Portrait.texture = data[0][2]
 		data.remove_at(0)
 	else:
+		if player:
+			player.can_move = true
 		queue_free()
 
 

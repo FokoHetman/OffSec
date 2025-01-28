@@ -7,6 +7,7 @@ const GRAVITY = PI**2				# I am never serious
 func _physics_process(delta):
 	player_movement(delta)
 
+var can_move = false
 
 # feedback request!!
 var jumping = false
@@ -27,7 +28,8 @@ var running = false
 var last_movement = false		# false - x; true - y
 
 func player_movement(delta):
-	
+	if !can_move:
+		return
 	if Input.is_key_pressed(KEY_SHIFT):
 		running = true
 	else:
