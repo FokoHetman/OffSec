@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://scripts/world_functions/painting.gd" id="4_oyyes"]
 
 [node name="Node2D2" type="Node2D"]
+position = Vector2(0, -1)
+scale = Vector2(0.556, 0.525)
 script = ExtResource("2_jrk4w")
 
 [node name="PlayerRoom" type="Sprite2D" parent="."]
