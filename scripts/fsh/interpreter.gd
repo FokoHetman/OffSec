@@ -3,14 +3,34 @@ extends Node
 
 var env
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+'''
+enum NodeKind {
+	Program,			# defined in `program.gd`
+	Identifier,			# defined in `identifier.gd`
+	BinaryOperation,	# defined in `binop.gd`
+	Declaration,		# defined in `declaration.gd`
+	
+	Integer,			# literal int
+	Float,				# literal float
+	String,				# literal string
+}
+'''
 
+func evaluate_program(program: FSHProgram, env: Env):
+	var last_eval = Nullus.new()
+	for i in program.body:
+		last_eval = evaluate(i, env)
+	return last_eval
+func evaluate(node: FSHNode, env: Env):
+	match node.kind:
+		FSHParser.NodeKind.BinaryOperation:
+			pass
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-func _init(env: Env):
-	env = env
+func evaluate_binop(node: FSHBinaryOperation, env: Env):
+	match node.operator:
+		FSHTokenizer.Operator.Addition:
+			pass
+		FSHTokenizer.Operator.Substraction:
+			pass
+		FSHTokenizer.Operator.Multiplication:
+			pass
