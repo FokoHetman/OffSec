@@ -8,6 +8,7 @@ func _ready():
 	if player.can_instantiate():
 		player_instance = player.instantiate()
 		add_child(player_instance)
+		player_instance.scale *= Vector2(3,3)
 		player_instance.position = Vector2(200,250)
 	if dialog.can_instantiate():
 		var instance = dialog.instantiate()
@@ -18,3 +19,7 @@ func _ready():
 			["Jan Kowalski", "Kwestia2", load("res://art/portrait.png")],
 		], player_instance)
 	#write("Jan Kowalski", "hello there!!!!!!!!!!")
+
+
+func _process(delta):
+	pass
