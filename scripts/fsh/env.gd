@@ -2,11 +2,28 @@
 extends Node
 class_name Env
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+var functions = []
+var aliases = []
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _init():
 	pass
+
+func declare(id: FSHIdentifier, value: FSHNode):
+	functions.append([id, value])
+	
+func resolve(id : FSHIdentifier):
+	for i in functions:
+		if i[0]==id: # check children too
+			pass
+
+func display():
+	print("ENV")
+	for i in functions:
+		print(i[0].display(), i[1].display())
+	print("END_ENV")
+
+func get_fun(id: FSHIdentifier):
+	for i in functions:
+		if id.symbol==i[0].symbol:
+			return i[1]
+	return Nullus.new()

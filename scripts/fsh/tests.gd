@@ -1,7 +1,10 @@
 extends Node2D
 
 
+func run():
+	var env = Env.new()
+	var run = FSHInterpreter.new().evaluate(FSHParser.new().parse(FSHTokenizer.new().tokenize($Input.text)[1]), env)
+	$Output.text = run.display()
 func _ready():
-	var run = FSHParser.new().parse(FSHTokenizer.new().tokenize("help=2")[1])
-	
-	print(run.node.body[0].node.left.node.symbol, ":", run.node.body[0].node.operator, ":", run.node.body[0].node.right.node)
+	$Output.add_theme_font_size_override("font_size", 16)
+	$Button.connect("button_up", Callable(self, "run"))

@@ -11,6 +11,7 @@ enum NodeKind {
 	Integer,			# literal int
 	Float,				# literal float
 	String,				# literal string
+	Nullus,
 }
 
 enum ParserError {
@@ -37,47 +38,50 @@ func eatExpect(type):
 	return tok
 func parse(p_tokens):
 	tokens = p_tokens
-	var result = FSHNode.new(NodeKind.Program, FSHProgram.new())
+	var result = FSHProgram.new()
 	while tokens[0].type != tokenizer.TokenType.EOF:
-		result.node.append(parseSTMT())
+		result.append(parseSTMT())
 	return result
 
-func parseSTMT():
+func parseSTMT(deep = true):
 	var left = parse_multiplicative_expr()
 	if tokens[0].type==tokenizer.TokenType.Operator && tokens[0].operator==tokenizer.Operator.Equals:
 		var operator = eat().operator
-		left = FSHNode.new(NodeKind.Declaration, FSHDeclaration.new(left, parse_multiplicative_expr()))
+		left = FSHDeclaration.new(left, parse_multiplicative_expr(deep))
 	return left
 
-func parse_multiplicative_expr():
-	var left = parse_additive_expr()
+func parse_multiplicative_expr(deep = true):
+	var left = parse_additive_expr(deep)
 	while tokens[0].type==tokenizer.TokenType.Operator && tokens[0].operator in [tokenizer.Operator.Multiplication, tokenizer.Operator.Division]:
 		var operator = eat().operator
-		left = FSHNode.new(NodeKind.BinaryOperation, FSHBinaryOperation.new(left, parse_additive_expr(), operator))
+		left = FSHBinaryOperation.new(left, parse_additive_expr(deep), operator)
 	return left
 
-func parse_additive_expr():
-	var left = parse_primary_expr()
+func parse_additive_expr(deep = true):
+	var left = parse_primary_expr(deep)
 	while tokens[0].type==tokenizer.TokenType.Operator && tokens[0].operator in [tokenizer.Operator.Addition, tokenizer.Operator.Substraction]:
 		var operator = eat().operator
-		left = FSHNode.new(NodeKind.BinaryOperation, FSHBinaryOperation.new(left, parse_primary_expr(), operator))
+		left = FSHBinaryOperation.new(left, parse_primary_expr(deep), operator)
 	return left
 
-func parse_primary_expr():
+func parse_primary_expr(deep = true):
 	var eat = eat()
 	match eat.type:
 		tokenizer.TokenType.String:
-			return FSHNode.new(NodeKind.String, eat.value)
+			return eat.value
 		tokenizer.TokenType.Identifier:
 			var children = []
-			while !(at().type in [tokenizer.TokenType.EOF, tokenizer.TokenType.SemiColon, tokenizer.TokenType.Operator]):
-				children.append(self.parse_multiplicative_expr())# -- I have no idea what should be there actually
+			if deep:
+				while !(at().type in [tokenizer.TokenType.EOF, tokenizer.TokenType.SemiColon, tokenizer.TokenType.Operator]):
+					children.append(self.parse_multiplicative_expr(false))# -- I have no idea what should be there actually
 			#children.kill() -- don't
-			return FSHNode.new(NodeKind.Identifier, FSHIdentifier.new(eat.value, children))
+			return FSHIdentifier.new(eat.value, children)
 		tokenizer.TokenType.Float:
-			return FSHNode.new(NodeKind.Float, eat.value)
+			return FSHFloat.new(eat.value)
 		tokenizer.TokenType.Integer:
-			return FSHNode.new(NodeKind.Integer, eat.value)
+			return FSHInt.new(eat.value)
+		tokenizer.TokenType.SemiColon:
+			return FSHNullus.new()
 		_:
 			error = [true, ParserError.UnexpectedToken, eat]
 			return false

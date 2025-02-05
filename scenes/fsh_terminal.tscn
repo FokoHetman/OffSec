@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxsjwedmk58yu"]
+
+[ext_resource type="Script" path="res://scripts/fsh/tests.gd" id="1_fnnw2"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_fnnw2")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 3.0
+offset_top = 245.0
+offset_right = 81.0
+offset_bottom = 276.0
+text = "Interpret"
+
+[node name="Input" type="TextEdit" parent="."]
+offset_right = 423.0
+offset_bottom = 244.0
+
+[node name="Output" type="Label" parent="."]
+offset_left = 5.0
+offset_top = 278.0
+offset_right = 45.0
+offset_bottom = 301.0
+scale = Vector2(2.47547, 1.01639)

@@ -83,6 +83,8 @@ func tokenize(code: String):
 				tokens.append(FSHToken.new(TokenType.Operator, null, Operator.Multiplication))
 			"/":
 				tokens.append(FSHToken.new(TokenType.Operator, null, Operator.Division))
+			"=":
+				tokens.append(FSHToken.new(TokenType.Operator, null, Operator.Equals))
 			"\"":
 				chars.remove_at(0)
 				var buffer = ""
@@ -123,7 +125,7 @@ func tokenize(code: String):
 				if len(chars)>0 && chars[0].is_valid_identifier():
 					var buffer = chars[0]
 					chars.remove_at(0)
-					while (buffer + chars[0]).is_valid_identifier():
+					while len(chars)>0 && (buffer + chars[0]).is_valid_identifier():
 						buffer += chars[0]
 						chars.remove_at(0)
 					removable = false
