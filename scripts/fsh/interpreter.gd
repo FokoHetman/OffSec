@@ -75,12 +75,67 @@ func evaluate_binop(node: FSHBinaryOperation, env: Env):
 							return FructaFloat.new(left.value+str(right.value))
 						Fructa.FructaKinds.String:
 							return FructaString.new(left.value + right.value)
-
-
 		FSHTokenizer.Operator.Substraction:
-			pass
+			var left = evaluate(node.left, env)
+			match left.kind:
+				Fructa.FructaKinds.Int:
+					var right = evaluate(node.right, env)
+					match right.kind:
+						Fructa.FructaKinds.Int:
+							return FructaInt.new(left.value-right.value)
+						Fructa.FructaKinds.Float:
+							return FructaFloat.new(left.value-right.value)
+				Fructa.FructaKinds.Float:
+					var right = evaluate(node.right, env)
+					match right.kind:
+						Fructa.FructaKinds.Int:
+							return FructaInt.new(left.value+right.value)
+						Fructa.FructaKinds.Float:
+							return FructaFloat.new(left.value+right.value)
 		FSHTokenizer.Operator.Multiplication:
-			pass
+			var left = evaluate(node.left, env)
+			match left.kind:
+				Fructa.FructaKinds.Int:
+					var right = evaluate(node.right, env)
+					match right.kind:
+						Fructa.FructaKinds.Int:
+							return FructaInt.new(left.value*right.value)
+						Fructa.FructaKinds.Float:
+							return FructaFloat.new(left.value*right.value)
+						Fructa.FructaKinds.String:
+							return FructaString.new(str(left.value) * right.value)
+				Fructa.FructaKinds.Float:
+					var right = evaluate(node.right, env)
+					match right.kind:
+						Fructa.FructaKinds.Int:
+							return FructaInt.new(left.value*right.value)
+						Fructa.FructaKinds.Float:
+							return FructaFloat.new(left.value*right.value)
+				Fructa.FructaKinds.String:
+					var right = evaluate(node.right, env)
+					match right.kind:
+						Fructa.FructaKinds.Int:
+							return FructaInt.new(left.value*str(right.value))
+
+		FSHTokenizer.Operator.Division:
+			var left = evaluate(node.left, env)
+			match left.kind:
+				Fructa.FructaKinds.Int:
+					var right = evaluate(node.right, env)
+					match right.kind:
+						Fructa.FructaKinds.Int:
+							return FructaInt.new(left.value/right.value)
+						Fructa.FructaKinds.Float:
+							return FructaFloat.new(left.value/right.value)
+				Fructa.FructaKinds.Float:
+					var right = evaluate(node.right, env)
+					match right.kind:
+						Fructa.FructaKinds.Int:
+							return FructaInt.new(left.value/right.value)
+						Fructa.FructaKinds.Float:
+							return FructaFloat.new(left.value/right.value)
+
+
 
 func evaluate_declaration(node: FSHDeclaration, env: Env):
 	env.declare(node.identifier, node.body)
