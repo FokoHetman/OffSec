@@ -73,7 +73,8 @@ func question():
 		questions.remove_at(0)
 	else:
 		save_config()
-		$CanvasLayer.queue_free()
+		get_parent().refresh()
+		queue_free() # this MUST be done somehow else
 		pass # destroy the wizard window and enter the game here
 
 ### TODO
@@ -88,7 +89,8 @@ func save():
 	return config
 
 func save_config():
-	var config_file = FileAccess.open("user://config.json", FileAccess.WRITE)
+	config["structure"] = {}
+	var config_file = FileAccess.open("user://save.json", FileAccess.WRITE)
 	var node_data = call("save")
 	var json_string = JSON.stringify(node_data)
 	config_file.store_line(json_string)

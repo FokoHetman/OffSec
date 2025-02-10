@@ -23,3 +23,9 @@ func _ready():
 
 func _process(delta):
 	pass
+
+func save():
+	return {
+		"filename": get_scene_file_path(),
+		"position": position,
+	}

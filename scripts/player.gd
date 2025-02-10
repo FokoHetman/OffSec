@@ -81,3 +81,13 @@ func movement_animation(dy, dx):
 	else:
 		anim.play("idle_front")
 	
+
+
+func _ready():
+	add_to_group("persistence")
+func save():
+	return {
+		"filename": get_scene_file_path(),
+		"pos_x": position.x,
+		"pos_y": position.y,
+	}

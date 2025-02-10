@@ -40,9 +40,6 @@ func evaluate(node: FSHNode, env: Env):
 		_:
 			print("skipped")
 
-func evaluate_id(node: FSHIdentifier, env: Env):
-	return evaluate(env.get_fun(node), env)
-
 func evaluate_binop(node: FSHBinaryOperation, env: Env):
 	match node.operator:
 		FSHTokenizer.Operator.Addition:
@@ -141,11 +138,10 @@ func evaluate_declaration(node: FSHDeclaration, env: Env):
 	env.declare(node.identifier, node.body)
 	return Nullus.new()
 
-'''
-func evaluate_identifier(node: FSHIdentifier, env: Env):
+
+func evaluate_id(node: FSHIdentifier, env: Env):	### TO DO
 	var t_env = Env.new()
-	var data = env.get_id(node)
+	var data = env.get_fun(node)
 	for i in range(len(data.id.children)):
 		t_env.declare(data.id.children[i], node.children[i])
 	return evaluate(data.body, t_env)
-'''
