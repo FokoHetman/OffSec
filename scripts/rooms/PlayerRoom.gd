@@ -5,11 +5,16 @@ var player = preload("res://scenes/player.tscn")
 var player_instance
 
 func _ready():
+	add_to_group("persistence", true)
+	if get_parent() && get_parent().refresh()["current_scene"].to_lower()=="intro":
+		get_parent().save_game()
+	
+	
 	if player.can_instantiate():
 		player_instance = player.instantiate()
-		add_child(player_instance)
+		get_parent().add_child(player_instance)
 		player_instance.scale *= Vector2(3,3)
-		player_instance.position = Vector2(200,250)
+		#player_instance.position = Vector2(200,250)
 	if dialog.can_instantiate():
 		var instance = dialog.instantiate()
 		add_child(instance)
@@ -26,6 +31,5 @@ func _process(delta):
 
 func save():
 	return {
-		"filename": get_scene_file_path(),
-		"position": position,
+		"filename": get_scene_file_path()
 	}

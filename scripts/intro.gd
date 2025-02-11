@@ -1,4 +1,4 @@
-extends Node2D
+extends RuntimeNode
 
 
 var translations = Translations.new()
@@ -73,8 +73,11 @@ func question():
 		questions.remove_at(0)
 	else:
 		save_config()
-		get_parent().refresh()
-		queue_free() # this MUST be done somehow else
+		if get_parent():
+			get_parent().save_game()
+			get_parent().ch_scene(get_parent().player_room)
+		
+		#queue_free() # this MUST be done somehow else
 		pass # destroy the wizard window and enter the game here
 
 ### TODO
@@ -85,12 +88,13 @@ func setup_username():
 func setup_priviledge():
 	config["priviledge"] = priviledges[last_child.selected]
 
-func save():
-	return config
-
 func save_config():
 	config["structure"] = {}
 	var config_file = FileAccess.open("user://save.json", FileAccess.WRITE)
-	var node_data = call("save")
+	var node_data = config
 	var json_string = JSON.stringify(node_data)
 	config_file.store_line(json_string)
+
+
+
+'''RUNTIME FUNCTIONS'''

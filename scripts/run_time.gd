@@ -5,24 +5,30 @@ var intro = preload("res://scenes/intro.tscn")
 var player_room = preload("res://scenes/player_room.tscn")
 #var map = preload()
 
+
+var known_scenes = {
+	"intro": intro,
+	"player_room": player_room,
+}
+
+var global_data = {
+	"progress": 0,
+	"current_scene": null,
+}
+
+
 var p_data = {}
 var instance = true
 var current_scene
-var queued_scenes = []
 func _ready():
 	load_game()
 
-
-func _process(d):
-	if !current_scene && len(queued_scenes)>0:
-		current_scene = queued_scenes[0].instantiate()
-		add_child(current_scene)
-		queued_scenes.remove_at(0)
-		save_game()
-
 func ch_scene(scene: PackedScene):
 	if scene && scene.can_instantiate():
+		if current_scene:
+			current_scene.queue_free()
 		current_scene = scene.instantiate()
+		global_data["current_scene"] = current_scene.name
 		add_child(current_scene)
 		return true
 	return false
@@ -36,7 +42,10 @@ func save_game():
 		
 		
 		save["structure"][i.name] = i.call("save")
+	save["progress"] = global_data["progress"]
+	save["current_scene"] = global_data["current_scene"]
 	save_file.store_string(JSON.stringify(save))
+	save_file.close()
 	
 
 func load_game():
@@ -50,14 +59,21 @@ func load_game():
 		for x in save_json["structure"][i].keys():
 			if x == "filename" or x == "parent":
 				continue
-			new_object.set(i, save_json["structure"][i][x])
+			if x == "position":
+				print(i, x, Vector2(save_json["structure"][i][x]["x"], save_json["structure"][i][x]["y"]))
+				new_object.set(x, Vector2(save_json["structure"][i][x]["x"], save_json["structure"][i][x]["y"]))
+				print(new_object.position)
+				continue
+			new_object.set(x, save_json["structure"][i][x])
+	ch_scene(known_scenes[save_json["current_scene"].to_lower()])
+	save.close()
 	refresh()
 
-func refresh():
+func refresh():			# tf is this function bro
 	var file = FileAccess.open("user://save.json", FileAccess.READ)
 	p_data = JSON.parse_string(file.get_as_text())
+	file.close()
 	return p_data
 
 func new_game():
 	ch_scene(intro)
-	queued_scenes.append(player_room)

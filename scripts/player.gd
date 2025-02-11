@@ -84,10 +84,9 @@ func movement_animation(dy, dx):
 
 
 func _ready():
-	add_to_group("persistence")
+	add_to_group("persistence", true)
 func save():
 	return {
 		"filename": get_scene_file_path(),
-		"pos_x": position.x,
-		"pos_y": position.y,
+		"position": {"x": position.x, "y": position.y},
 	}
