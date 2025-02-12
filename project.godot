@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="BartekMieczykowski"
-run/main_scene="res://scenes/player.tscn"
+run/main_scene="res://scenes/run_time.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://art/pixelArts/icon.svg"
 

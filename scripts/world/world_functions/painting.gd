@@ -18,6 +18,7 @@ func _mouse_enter():
 func fall(timer):
 	if stage>15:
 		get_parent().rotate((randf()-0.5)/5)
+		get_parent().get_parent().get_parent().save_game()
 		timer.queue_free()
 	else:
 		get_parent().position.y+=3
