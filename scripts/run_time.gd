@@ -3,15 +3,13 @@ extends Node2D
 
 var intro = preload("res://scenes/intro.tscn")
 var player_room = preload("res://scenes/player_room.tscn")
-var player_scene = preload("res://scenes/player.tscn")
-var world = preload("res://scenes/world_map.tscn")
+var settings = preload("res://scenes/settings.tscn") # <<<<<<<<<<<<<<<<
 #var map = preload()
-
+var settings_scene ##### <<<<<<<<<<<<<<<<<<<<
 
 var known_scenes = {
 	"intro": intro,
 	"player_room": player_room,
-	"world": world,
 }
 
 var global_data = {
@@ -23,7 +21,6 @@ var global_data = {
 var p_data = {}
 var instance = true
 var current_scene
-var player
 func _ready():
 	load_game()
 
@@ -36,14 +33,6 @@ func ch_scene(scene: PackedScene):
 		add_child(current_scene)
 		return true
 	return false
-
-func spawn_player(at: Vector2):
-	if !player:
-		if !player_scene.can_instantiate():
-			return false
-		player = player_scene.instantiate()
-		add_child(player)
-	player.position = at
 
 func save_game():
 	var save_file = FileAccess.open("user://save.json", FileAccess.READ_WRITE)
@@ -61,6 +50,7 @@ func save_game():
 	
 
 func load_game():
+	create_settings()  #### <<<<<<<<<<<<<<<<<<<<<<<
 	if !FileAccess.file_exists("user://save.json"):
 		new_game()
 		return
@@ -77,9 +67,6 @@ func load_game():
 				print(new_object.position)
 				continue
 			new_object.set(x, save_json["structure"][i][x])
-		if i.to_lower()=="player":
-			player = new_object
-			add_child(player)
 	ch_scene(known_scenes[save_json["current_scene"].to_lower()])
 	save.close()
 	refresh()
@@ -92,3 +79,19 @@ func refresh():			# tf is this function bro
 
 func new_game():
 	ch_scene(intro)
+
+
+
+func create_settings():
+	settings_scene = settings.instantiate()
+	settings_scene.get_node('CanvasLayer').hide()
+	add_child(settings_scene)
+	settings_scene.get_node('CanvasLayer').layer = 5
+
+func _input(event):
+	if event.is_action_pressed("settings") && settings_scene:
+		if !settings_scene.get_node('CanvasLayer').visible:
+			settings_scene.get_node('CanvasLayer').show()
+			settings_scene.back_to_main()
+		else:
+			settings_scene.get_node('CanvasLayer').hide()
