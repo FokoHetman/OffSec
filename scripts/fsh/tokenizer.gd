@@ -32,6 +32,11 @@ enum TokenType {
 	Quote,				# "
 	LQuote,				# '
 	
+	
+	Matterializator,	# $
+	Indexation,			# .
+	
+	
 	EOF,				# End Of File/Input
 }
 
@@ -103,6 +108,10 @@ func tokenize(code: String):
 					if len(chars)==0:
 						return [false, TokenizerError.UnmatchedQuote]
 				tokens.append(FSHToken.new(TokenType.String, buffer, null))
+			"$":
+				tokens.append(FSHToken.new(TokenType.Matterializator, null, null))
+			".":
+				tokens.append(FSHToken.new(TokenType.Indexation, null, null))
 			_:
 				if chars[0].is_valid_int():
 					var buffer = chars[0]

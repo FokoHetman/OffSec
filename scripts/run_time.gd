@@ -5,15 +5,17 @@ var intro = preload("res://scenes/intro.tscn")
 var player_room = preload("res://scenes/player_room.tscn")
 var player_scene = preload("res://scenes/player.tscn")
 var world = preload("res://scenes/world_map.tscn")
+
 var settings = preload("res://scenes/settings.tscn") 
 var settings_scene 
+
 #var map = preload()
 
 
 var known_scenes = {
 	"intro": intro,
 	"player_room": player_room,
-	"world": world,
+	"world_map": world,
 }
 
 var global_data = {

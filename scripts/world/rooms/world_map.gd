@@ -1,6 +1,8 @@
 extends Node2D
 
 
+var heat_flower_scene = preload("res://scenes/flora/heat_flower.tscn")
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
