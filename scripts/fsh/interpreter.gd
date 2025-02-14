@@ -142,6 +142,6 @@ func evaluate_declaration(node: FSHDeclaration, env: Env):
 func evaluate_id(node: FSHIdentifier, env: Env):	### TO DO
 	var t_env = Env.new()
 	var data = env.get_fun(node)
-	for i in range(len(data.id.children)):
-		t_env.declare(data.id.children[i], node.children[i])
-	return evaluate(data.body, t_env)
+	for i in range(len(data[0].children)):
+		t_env.declare(data[0].children[i], node.children[i])
+	return evaluate(data[1], t_env)

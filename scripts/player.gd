@@ -85,6 +85,7 @@ func movement_animation(dy, dx):
 
 func _ready():
 	add_to_group("persistence", true)
+	add_to_group("alive", true)
 	z_index = 2
 func save():
 	return {

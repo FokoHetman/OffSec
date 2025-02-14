@@ -5,13 +5,15 @@ var intro = preload("res://scenes/intro.tscn")
 var player_room = preload("res://scenes/player_room.tscn")
 var player_scene = preload("res://scenes/player.tscn")
 var world = preload("res://scenes/world_map.tscn")
+var settings_scene ##### <<<<<<<<<<<<<<<<<<<<
+var settings = preload("res://scenes/settings.tscn")
 #var map = preload()
 
 
 var known_scenes = {
 	"intro": intro,
 	"player_room": player_room,
-	"world": world,
+	"world_map": world,
 }
 
 var global_data = {
@@ -61,6 +63,7 @@ func save_game():
 	
 
 func load_game():
+	create_settings()  #### <<<<<<<<<<<<<<<<<<<<<<<
 	if !FileAccess.file_exists("user://save.json"):
 		new_game()
 		return
@@ -92,3 +95,17 @@ func refresh():			# tf is this function bro
 
 func new_game():
 	ch_scene(intro)
+
+func create_settings():
+	settings_scene = settings.instantiate()
+	settings_scene.get_node('CanvasLayer').hide()
+	add_child(settings_scene)
+	settings_scene.get_node('CanvasLayer').layer = 5
+
+func _input(event):
+	if event.is_action_pressed("escape_menu") && settings_scene:
+		if !settings_scene.get_node('CanvasLayer').visible:
+			settings_scene.get_node('CanvasLayer').show()
+			settings_scene.back_to_main()
+		else:
+			settings_scene.get_node('CanvasLayer').hide()

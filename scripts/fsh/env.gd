@@ -25,5 +25,5 @@ func display():
 func get_fun(id: FSHIdentifier):
 	for i in functions:
 		if id.symbol==i[0].symbol:
-			return i[1]
+			return i
 	return Nullus.new()
