@@ -5,6 +5,8 @@ var intro = preload("res://scenes/intro.tscn")
 var player_room = preload("res://scenes/player_room.tscn")
 var player_scene = preload("res://scenes/player.tscn")
 var world = preload("res://scenes/world_map.tscn")
+var settings = preload("res://scenes/settings.tscn") 
+var settings_scene 
 #var map = preload()
 
 
@@ -58,9 +60,23 @@ func save_game():
 	save["current_scene"] = global_data["current_scene"]
 	save_file.store_string(JSON.stringify(save))
 	save_file.close()
-	
+
+func create_settings():
+	settings_scene = settings.instantiate()
+	settings_scene.get_node('CanvasLayer').hide()
+	add_child(settings_scene)
+	settings_scene.get_node('CanvasLayer').layer = 5
+
+func _input(event):
+	if event.is_action_pressed("settings") && settings_scene:
+		if !settings_scene.get_node('CanvasLayer').visible:
+			settings_scene.get_node('CanvasLayer').show()
+			settings_scene.back_to_main()
+		else:
+			settings_scene.get_node('CanvasLayer').hide()
 
 func load_game():
+	create_settings()
 	if !FileAccess.file_exists("user://save.json"):
 		new_game()
 		return
