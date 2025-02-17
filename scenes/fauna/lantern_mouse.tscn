@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://clf6rse71nvv3"]
+[gd_scene load_steps=4 format=3 uid="uid://clf6rse71nvv3"]
 
 [ext_resource type="Script" path="res://scripts/world/fauna/lantern_mouse.gd" id="1_dvy15"]
 [ext_resource type="Texture2D" uid="uid://durk3ehaxdvft" path="res://art/pixelArts/lantern_mouse.png" id="1_nox2a"]
+[ext_resource type="Script" path="res://scripts/world/weather.gd" id="3_l15xm"]
 
 [node name="LanternMouse" type="Node2D"]
 script = ExtResource("1_dvy15")
@@ -13,14 +14,14 @@ texture = ExtResource("1_nox2a")
 skeleton = NodePath("../../skeleton_down")
 polygon = PackedVector2Array(61.3406, 16.2991, 58.3607, 18.948, 58.3938, 26.2985, 64.5854, 26.3647, 64.4199, 18.5507)
 uv = PackedVector2Array(61.3406, 16.2991, 58.3607, 18.948, 58.3938, 26.2985, 64.5854, 26.3647, 64.4199, 18.5507)
-bones = ["tail", PackedFloat32Array(1, 1, 1, 1, 1), "tail/body", PackedFloat32Array(0, 0, 0.5, 0.5, 0), "tail/body/head", PackedFloat32Array(0, 0, 0, 0, 0)]
+bones = ["tail", PackedFloat32Array(1, 1, 1, 1, 1), "tail/body", PackedFloat32Array(0, 0, 0.5, 0.5, 0), "tail/body/head", PackedFloat32Array(0, 0, 0, 0, 0), "string", PackedFloat32Array(0, 0, 0, 0, 0)]
 
 [node name="body" type="Polygon2D" parent="poly_down"]
 texture = ExtResource("1_nox2a")
 skeleton = NodePath("../../skeleton_down")
 polygon = PackedVector2Array(58.8441, 25.294, 53.5989, 31.4756, 51.8438, 31.6323, 49.6185, 33.7322, 49.8379, 36.2709, 47.8007, 38.6528, 46.7038, 40.784, 46.954, 49.03, 49.6494, 48.9673, 49.7715, 57.5701, 47.7719, 59.0181, 47.7374, 69.2573, 49.4957, 71.4638, 73.7321, 71.6017, 75.3179, 68.9471, 75.5593, 57.9838, 73.2839, 55.1223, 73.1805, 48.1237, 76.4212, 47.9858, 76.3495, 40.6064, 75.2808, 35.6419, 74.0741, 33.6423, 71.1111, 30.8212, 65.6982, 25.5141, 64.2365, 25.3882)
 uv = PackedVector2Array(58.927, 26.2416, 53.5989, 31.4756, 51.8438, 31.6323, 49.6185, 33.7322, 49.8379, 36.2709, 47.8007, 38.6528, 46.7038, 40.784, 46.954, 49.03, 49.6494, 48.9673, 49.7715, 57.5701, 47.7719, 59.0181, 47.7374, 69.2573, 49.4957, 71.4638, 73.7321, 71.6017, 75.3179, 68.9471, 75.5593, 57.9838, 73.2839, 55.1223, 73.1805, 48.1237, 76.4212, 47.9858, 76.3495, 40.6064, 75.2808, 35.6419, 74.0741, 33.6423, 71.1111, 30.8212, 65.6982, 25.5141, 64.1812, 25.2383)
-bones = ["tail", PackedFloat32Array(0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5), "tail/body", PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1), "tail/body/head", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)]
+bones = ["tail", PackedFloat32Array(0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5), "tail/body", PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1), "tail/body/head", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), "string", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)]
 
 [node name="head" type="Polygon2D" parent="poly_down"]
 position = Vector2(0, -1)
@@ -28,7 +29,18 @@ texture = ExtResource("1_nox2a")
 skeleton = NodePath("../../skeleton_down")
 polygon = PackedVector2Array(44.5481, 71.6049, 68.9569, 71.9152, 69.4741, 72.8805, 77.0587, 72.4323, 78.2677, 73.745, 78.4056, 79.7093, 77.13, 82.7087, 75.0614, 84.4325, 75.3717, 94.3606, 76.4404, 94.533, 76.3714, 99.8767, 74.5442, 100.221, 70.8553, 104.186, 51.9626, 104.047, 51.2731, 102.737, 45.8259, 102.702, 43.1023, 99.8064, 42.792, 90.7048, 43.8263, 90.4635, 43.8274, 81.1205, 41.7934, 79.3967, 41.69, 74.3288)
 uv = PackedVector2Array(44.5481, 71.6049, 68.9569, 71.9152, 69.4741, 72.8805, 77.0587, 72.4323, 78.2677, 73.745, 78.4056, 79.7093, 77.13, 82.7087, 75.0614, 84.4325, 75.3717, 94.3606, 76.4404, 94.533, 76.3714, 99.8767, 74.5442, 100.221, 70.8553, 104.186, 51.9626, 104.047, 51.2731, 102.737, 45.8259, 102.702, 43.1023, 99.8064, 42.792, 90.7048, 43.8263, 90.4635, 43.8274, 81.1205, 41.7934, 79.3967, 41.69, 74.3288)
-bones = ["tail", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), "tail/body", PackedFloat32Array(0.5, 0.5, 0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), "tail/body/head", PackedFloat32Array(0.5, 0.5, 0.5, 0.5, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5)]
+bones = ["tail", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), "tail/body", PackedFloat32Array(0.5, 0.5, 0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), "tail/body/head", PackedFloat32Array(0.5, 0.5, 0.5, 0.5, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5), "string", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)]
+
+[node name="string" type="Node2D" parent="poly_down"]
+
+[node name="string" type="Polygon2D" parent="poly_down/string"]
+position = Vector2(62, 18)
+offset = Vector2(-61.98, -18.7)
+texture = ExtResource("1_nox2a")
+skeleton = NodePath("../../../skeleton_down")
+polygon = PackedVector2Array(61.8174, 17.7025, 61.1473, 17.707, 61.1379, 18.6939, 61.8096, 18.6947)
+uv = PackedVector2Array(61.7801, 17.8242, 61.1473, 17.707, 61.202, 18.7461, 61.8738, 18.668)
+bones = ["tail", PackedFloat32Array(0, 0, 1, 1), "tail/body", PackedFloat32Array(0, 0, 0, 0), "tail/body/head", PackedFloat32Array(0, 0, 0, 0), "string", PackedFloat32Array(1, 1, 0, 0)]
 
 [node name="skeleton_down" type="Skeleton2D" parent="."]
 
@@ -46,3 +58,13 @@ rest = Transform2D(1, 0, 0, 1, 0, 44)
 auto_calculate_length_and_angle = false
 length = 30.0
 bone_angle = 90.0
+
+[node name="string" type="Bone2D" parent="skeleton_down"]
+position = Vector2(61, 18)
+rest = Transform2D(1, 0, 0, 1, 61, 18)
+auto_calculate_length_and_angle = false
+length = 1.0
+bone_angle = 90.0
+
+[node name="Weather" type="Node2D" parent="."]
+script = ExtResource("3_l15xm")
