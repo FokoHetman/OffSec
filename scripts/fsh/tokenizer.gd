@@ -25,6 +25,7 @@ enum TokenType {
 	CSParen,			# ]
 	
 	SemiColon,			# ;
+	Separator,			# ,
 	Pipe,				# |
 	LBracket,			# <
 	RBracket,			# >
@@ -112,6 +113,8 @@ func tokenize(code: String):
 				tokens.append(FSHToken.new(TokenType.Matterializator, null, null))
 			".":
 				tokens.append(FSHToken.new(TokenType.Indexation, null, null))
+			",":
+				tokens.append(FSHToken.new(TokenType.Separator, null, null))
 			_:
 				if chars[0].is_valid_int():
 					var buffer = chars[0]

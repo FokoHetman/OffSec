@@ -7,6 +7,10 @@ enum FructaKinds {
 	Float,
 	String,
 	Nullus,
+	
+	List,
+	Struct,
+	GameObject,
 }
 
 var kind

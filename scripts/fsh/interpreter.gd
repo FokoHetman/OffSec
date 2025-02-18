@@ -21,8 +21,10 @@ func evaluate_program(program: FSHProgram, env: Env):
 	print(program.display())
 	for i in program.body:
 		last_eval = evaluate(i, env)
+		print("le: ", last_eval)
 	return last_eval
 func evaluate(node: FSHNode, env: Env):
+	#print(node.display())
 	#env.display()
 	match node.kind:
 		FSHParser.NodeKind.Integer:
@@ -37,8 +39,47 @@ func evaluate(node: FSHNode, env: Env):
 			return evaluate_id(node, env)
 		FSHParser.NodeKind.Declaration:
 			return evaluate_declaration(node, env)
+		FSHParser.NodeKind.List:
+			return evaluate_list(node, env)
+		FSHParser.NodeKind.Struct:
+			return evaluate_struct(node, env)
+		FSHParser.NodeKind.Indexation:
+			return evaluate_indexation(node, env)
+		FSHParser.NodeKind.Matterializator:
+			return evaluate_matterializator(node, env)
 		_:
 			print("skipped")
+
+func evaluate_list(node: FSHList, env: Env):
+	var result = []
+	for i in node.body:
+		result.append(evaluate(i, env))
+	return FructaList.new(result)
+func evaluate_struct(node: FSHStruct, env: Env):
+	var definitions = []
+	for i in node.definitions:
+		definitions.append([i[0], evaluate(i[1], env)])
+	return FructaStruct.new(definitions)
+func evaluate_indexation(node: FSHIndexation, env: Env):
+	var left = evaluate(node.left, env)
+	match left.kind:
+		Fructa.FructaKinds.Struct:
+			for i in left.definitions:
+				#print(i[0].display(), node.right.display())
+				if i[0].symbol==node.right.symbol:
+					return i[1]
+		Fructa.FructaKinds.List:
+			var right = evaluate(node.right, env)
+			match right.kind:
+				Fructa.FructaKinds.Int:
+					return left.body[right.value]
+		Fructa.FructaKinds.GameObject:
+			pass
+
+
+func evaluate_matterializator(node: FSHMatterializator, env: Env):
+	pass
+
 
 func evaluate_binop(node: FSHBinaryOperation, env: Env):
 	match node.operator:
