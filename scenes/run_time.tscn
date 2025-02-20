@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://bnkvl73065ydq"]
+[gd_scene load_steps=3 format=3 uid="uid://bnkvl73065ydq"]
 
 [ext_resource type="Script" path="res://scripts/run_time.gd" id="1_lcouq"]
+[ext_resource type="Script" path="res://scripts/camera.gd" id="2_54w3s"]
 
 [node name="RunTime" type="Node2D"]
 script = ExtResource("1_lcouq")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(320, 170)
+script = ExtResource("2_54w3s")
