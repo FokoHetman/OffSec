@@ -549,6 +549,7 @@ tile_size = Vector2i(64, 64)
 sources/0 = SubResource("TileSetAtlasSource_x5aat")
 
 [node name="world_map" type="Node2D"]
+scale = Vector2(4, 4)
 script = ExtResource("1_fyy0c")
 
 [node name="layout" type="TileMapLayer" parent="."]

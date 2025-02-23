@@ -26,7 +26,7 @@ func _ready():
 		translations.translations[languages[language_choice.selected][1]]["intro.translations_desc"],
 	])
 	var username_input = LineEdit.new()
-	username_input.size = Vector2(5, 1)
+	username_input.size = Vector2(30, 3)
 	questions.append([
 		"Username",
 		username_input,
@@ -66,7 +66,7 @@ func question():
 		$CanvasLayer/Question.text = questions[0][0]
 		last_child = questions[0][1]
 		last_callable = questions[0][2]
-		last_child.position = Vector2(100,80)
+		last_child.position = Vector2(150,150)
 		$CanvasLayer.add_child(last_child)
 		
 		$CanvasLayer/Desc.text = questions[0][3]

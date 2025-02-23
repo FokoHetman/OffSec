@@ -5,10 +5,10 @@ var dialog = preload("res://scenes/dialog.tscn")
 func _ready():
 	add_to_group("persistence", true)
 	if get_parent().has_method("refresh") && get_parent().refresh()["current_scene"].to_lower()=="intro":
-		get_parent().spawn_player(Vector2(200,200))
+		get_parent().spawn_player(Vector2(900,600))
 		get_parent().save_game()					# save after completing intro installer
 	elif get_parent().has_method("refresh") && get_parent().refresh()["current_scene"].to_lower()=="world":
-		get_parent().spawn_player(Vector2(800,400))
+		get_parent().spawn_player(Vector2(1300,630))
 	
 	if get_parent() && dialog.can_instantiate():
 		var instance = dialog.instantiate()

@@ -8,22 +8,25 @@ script = ExtResource("1_c10ke")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Question" type="Label" parent="CanvasLayer"]
-offset_left = 8.0
-offset_top = 9.0
-offset_right = 881.0
-offset_bottom = 121.0
+offset_left = 76.0
+offset_top = 59.0
+offset_right = 949.0
+offset_bottom = 171.0
+theme_override_font_sizes/font_size = 50
 text = "Wizard - OffSec Installer"
 
 [node name="Continue" type="Button" parent="CanvasLayer"]
-offset_left = 502.0
-offset_top = 282.0
-offset_right = 658.0
-offset_bottom = 340.0
+offset_left = 1518.0
+offset_top = 934.0
+offset_right = 1947.0
+offset_bottom = 1058.0
 scale = Vector2(0.769208, 0.769208)
+theme_override_font_sizes/font_size = 75
 text = "Continue"
 
 [node name="Desc" type="Label" parent="CanvasLayer"]
-offset_left = 9.0
-offset_top = 125.0
-offset_right = 49.0
-offset_bottom = 148.0
+offset_left = 81.0
+offset_top = 321.0
+offset_right = 121.0
+offset_bottom = 370.0
+theme_override_font_sizes/font_size = 35

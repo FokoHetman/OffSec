@@ -15,7 +15,7 @@ func _process(delta):
 func _ready():
 	add_to_group("persistence", true)
 	if get_parent().has_method("refresh") && get_parent().refresh()["current_scene"].to_lower()=="player_room":
-		get_parent().spawn_player(Vector2(220,200))
+		get_parent().spawn_player(Vector2(900,400))
 	
 	for i in flower_positions:
 		var hfs = heat_flower_scene.instantiate()

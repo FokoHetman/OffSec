@@ -7,7 +7,7 @@
 
 [node name="player_room" type="Node2D"]
 position = Vector2(0, -1)
-scale = Vector2(0.556, 0.525)
+scale = Vector2(1.667, 1.668)
 script = ExtResource("2_jrk4w")
 
 [node name="PlayerRoom" type="Sprite2D" parent="."]

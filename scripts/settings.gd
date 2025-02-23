@@ -1,6 +1,6 @@
 extends Node2D
 
-var resolution = [Vector2(640,340),Vector2(1600,900),Vector2(1920,1080)]
+var resolution = [Vector2(1920,1080),Vector2(1600,900),Vector2(640,340)]
 
 func _ready() -> void:
 	back_to_main()

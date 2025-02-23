@@ -7,5 +7,5 @@
 script = ExtResource("1_lcouq")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2(320, 170)
+offset = Vector2(960, 540)
 script = ExtResource("2_54w3s")
