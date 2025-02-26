@@ -6,6 +6,9 @@ var player_room = preload("res://scenes/player_room.tscn")
 var player_scene = preload("res://scenes/player.tscn")
 var world = preload("res://scenes/world_map.tscn")
 
+var fsh = preload("res://scenes/fsh_terminal.tscn") 
+var fsh_scene
+
 var settings = preload("res://scenes/settings.tscn") 
 var settings_scene 
 
@@ -65,6 +68,7 @@ func save_game():
 
 func load_game():
 	create_settings()
+	create_fsh()
 	if !FileAccess.file_exists("user://save.json"):
 		new_game()
 		return
@@ -103,9 +107,20 @@ func create_settings():
 	add_child(settings_scene)
 	settings_scene.get_node('CanvasLayer').layer = 5
 
+func create_fsh():
+	fsh_scene = fsh.instantiate()
+	add_child(fsh_scene)
+
+
+
 func _input(event):
 	if event is InputEventKey and event.pressed:
-		if event.keycode == KEY_ESCAPE:
+		if event.keycode == KEY_TAB:
+			if fsh_scene.get_node("CanvasLayer").visible:
+				fsh_scene.get_node("CanvasLayer").hide()
+			else:
+				fsh_scene.get_node("CanvasLayer").show()
+		elif event.keycode == KEY_ESCAPE:
 			if !settings_scene.get_node('CanvasLayer').visible:
 				settings_scene.get_node('CanvasLayer').show()
 				settings_scene.back_to_main()

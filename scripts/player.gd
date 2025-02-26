@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-const SPEED = 5*1000
+const SPEED = 15*1000
 const GRAVITY = PI**2				# I am never serious
 	
 func _physics_process(delta):
@@ -45,9 +45,9 @@ func player_movement(delta):
 			else:
 				dx *= int(dy==0)
 			last_movement = abs(dx) > abs(dy)
-			velocity.x = dx * (SPEED * (1 + int(running) * 5)) * delta
-			velocity.y = dy * (SPEED * (1 + int(running) * 5)) * delta
-			movement_animation(dy, dx) 
+			velocity.x = dx * (SPEED * (1 + int(running))) * delta
+			velocity.y = dy * (SPEED * (1 + int(running))) * delta
+			movement_animation(dy, dx)
 		else:
 			velocity.x = 0
 			velocity.y = 0

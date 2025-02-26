@@ -17,5 +17,8 @@ var kind
 func _init():
 	pass
 
+func raw():
+	null
+
 func display():
 	pass

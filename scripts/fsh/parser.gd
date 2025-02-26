@@ -29,7 +29,7 @@ var tokenizer = FSHTokenizer.new()
 
 
 var tokens						# I do parsers a weird way, thus this is global
-var error = [false, -1, -1]		# [errored, error_id, value]
+var error_val
 
 func at():
 	return tokens[0]
@@ -40,7 +40,6 @@ func eat():
 func eatExpect(type):
 	var tok = tokens[0]
 	if type != tok.type:
-		error = [true, ParserError.UnexpectedToken, tok]
 		return false
 	tokens.remove_at(0)
 	return tok
@@ -48,36 +47,59 @@ func parse(p_tokens):
 	tokens = p_tokens
 	var result = FSHProgram.new()
 	while tokens[0].type != tokenizer.TokenType.EOF:
-		result.append(parseSTMT())
-	return result
+		var parsed = parseSTMT()
+		if !parsed:
+			return [false, ParserError.UnexpectedToken, error_val]
+		result.append(parsed)
+	return [true, result]
 
 func parseSTMT(deep = true):
 	var left = parse_multiplicative_expr()
+	if !left:
+		return false
 	if tokens[0].type==tokenizer.TokenType.Operator && tokens[0].operator==tokenizer.Operator.Equals:
 		var operator = eat().operator
-		left = FSHDeclaration.new(left, parse_multiplicative_expr(deep))
+		var right = parse_multiplicative_expr(deep)
+		if !right:
+			return false
+		left = FSHDeclaration.new(left, right)
 	return left
 
 func parse_multiplicative_expr(deep = true):
 	var left = parse_additive_expr(deep)
+	if !left:
+		return false
 	while tokens[0].type==tokenizer.TokenType.Operator && tokens[0].operator in [tokenizer.Operator.Multiplication, tokenizer.Operator.Division]:
 		var operator = eat().operator
-		left = FSHBinaryOperation.new(left, parse_additive_expr(deep), operator)
+		var right = parse_additive_expr()
+		if !right:
+			return false
+		left = FSHBinaryOperation.new(left, right, operator)
 	return left
 
 func parse_additive_expr(deep = true):
 	var left = parse_indexation(deep)
+	if !left:
+		return false
 	while tokens[0].type==tokenizer.TokenType.Operator && tokens[0].operator in [tokenizer.Operator.Addition, tokenizer.Operator.Substraction]:
 		var operator = eat().operator
-		left = FSHBinaryOperation.new(left, parse_indexation(deep), operator)
+		var right = parse_indexation(deep)
+		if !right:
+			return false
+		left = FSHBinaryOperation.new(left, right, operator)
 	return left
 
 
 func parse_indexation(deep = true):
 	var left = parse_primary_expr(deep)
+	if !left:
+		return false
 	while tokens[0].type == tokenizer.TokenType.Indexation:
 		self.eat()
-		left = FSHIndexation.new(left, parse_primary_expr(deep))
+		var right = parse_primary_expr(deep)
+		if !right:
+			return false
+		left = FSHIndexation.new(left, right)
 	return left
 
 
@@ -140,5 +162,5 @@ func parse_primary_expr(deep = true):
 		tokenizer.TokenType.Matterializator:
 			return FSHMatterializator.new(self.parse_primary_expr(deep))
 		_:
-			error = [true, ParserError.UnexpectedToken, eat]
+			error_val = eat
 			return false

@@ -2,27 +2,20 @@ extends Node
 class_name FSHInterpreter
 
 var env
+var root_node
+func _init(c_scene):
+	root_node = c_scene
 
-'''
-enum NodeKind {
-	Program,			# defined in `program.gd`
-	Identifier,			# defined in `identifier.gd`
-	BinaryOperation,	# defined in `binop.gd`
-	Declaration,		# defined in `declaration.gd`
-	
-	Integer,			# literal int
-	Float,				# literal float
-	String,				# literal string
-}
-'''
 
 func evaluate_program(program: FSHProgram, env: Env):
 	var last_eval = Nullus.new()
 	print(program.display())
 	for i in program.body:
 		last_eval = evaluate(i, env)
+		if typeof(last_eval)==TYPE_ARRAY:
+			return last_eval
 		print("le: ", last_eval)
-	return last_eval
+	return [true, last_eval]
 func evaluate(node: FSHNode, env: Env):
 	#print(node.display())
 	#env.display()
@@ -62,6 +55,7 @@ func evaluate_struct(node: FSHStruct, env: Env):
 	return FructaStruct.new(definitions)
 func evaluate_indexation(node: FSHIndexation, env: Env):
 	var left = evaluate(node.left, env)
+	print("indexation!: ", left)
 	match left.kind:
 		Fructa.FructaKinds.Struct:
 			for i in left.definitions:
@@ -74,11 +68,25 @@ func evaluate_indexation(node: FSHIndexation, env: Env):
 				Fructa.FructaKinds.Int:
 					return left.body[right.value]
 		Fructa.FructaKinds.GameObject:
-			pass
-
+			if !left.node:
+				return [false, 0]
+			if left.node.has_method(node.right.symbol):
+				var call = Callable(left.node, node.right.symbol)
+				if call.get_argument_count()!=len(node.right.children):
+					return [false, 1]
+				var args = []
+				for i in node.right.children:
+					args.append(evaluate(i, env).raw())
+				
+				call.callv(args)
+				return Nullus.new()
+			if node.right.symbol in left.node:
+				print(left.node[node.right.symbol])
+	return [false, 2]
 
 func evaluate_matterializator(node: FSHMatterializator, env: Env):
-	pass
+	var p_node = root_node.get_node(node.id.symbol)
+	return FructaObject.new(p_node)
 
 
 func evaluate_binop(node: FSHBinaryOperation, env: Env):

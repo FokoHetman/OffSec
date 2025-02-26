@@ -7,6 +7,8 @@ func _init(p_id: FSHIdentifier):
 	kind = FSHParser.NodeKind.Matterializator
 	id = p_id
 
+func display():
+	return "$" + id.symbol
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
