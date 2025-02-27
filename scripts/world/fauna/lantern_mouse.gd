@@ -1,4 +1,4 @@
-extends Node2D
+extends RuntimeNode
 
 const max_string_len = 100
 
@@ -93,9 +93,3 @@ func _process(d):
 			_:
 				pass
 	tick += 1
-
-
-## FSH
-
-func move(x, y):
-	position += Vector2(x, y)
