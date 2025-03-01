@@ -2,7 +2,11 @@ extends Node2D
 
 var dialog = preload("res://scenes/dialog.tscn")
 
+
 func _ready():
+	var translations = Translations.new()
+	var language = get_parent().global_data["language"]
+	var username = get_parent().global_data["username"]
 	add_to_group("persistence", true)
 	if get_parent().has_method("refresh") && get_parent().refresh()["current_scene"].to_lower()=="intro":
 		get_parent().spawn_player(Vector2(900,600))
@@ -13,19 +17,34 @@ func _ready():
 	if get_parent() && dialog.can_instantiate():
 		var instance = dialog.instantiate()
 		add_child(instance)
-		instance.dialog([
-			["Jan Kowalski", "Kwestia1", load("res://art/portrait.png")],
-			["Player", "Odpowiedź", load("res://art/patyczak.png")],
-			["Jan Kowalski", "Kwestia2", load("res://art/portrait.png")],
-		], get_parent().player)
-	#write("Jan Kowalski", "hello there!!!!!!!!!!")
-	#$Doors.connect("", )
-	$Doors.connect("body_entered", Callable(self, "pls").bind(get_parent().world))
+		if get_parent().global_data["progress"]==0:
+			instance.dialog([
+				[translations.translations[language]["helpful_spirit"], 
+				translations.translations[language]["player_room.text1"].replace("player", username), load("res://art/portrait.png")],
+				
+				[username, translations.translations[language]["player_room.text2"], load("res://art/patyczak.png")],
+				
+				[translations.translations[language]["helpful_spirit"], translations.translations[language]["player_room.text3"], load("res://art/portrait.png")],
+				
+				[username, translations.translations[language]["player_room.text4"], load("res://art/patyczak.png")],
+				
+				[translations.translations[language]["helpful_spirit"], translations.translations[language]["player_room.text5"], load("res://art/portrait.png"),
+					Callable(self, "add_quest")],
+			], get_parent().player)
+		else:
+			instance.queue_free()
+
+	$Doors.connect("body_entered", Callable(self, "doors").bind(get_parent().world))
+
+
+func add_quest():
+	get_parent().global_data["progress"] += 1
+
+
 
 var avoid = true
-func pls(who, scene):
+func doors(who, scene):
 	if !avoid:
-		print("PLEASE")
 		get_parent().ch_scene(scene)
 		print(get_parent().current_scene)
 	else:

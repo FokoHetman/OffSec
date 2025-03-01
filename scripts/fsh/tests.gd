@@ -20,6 +20,7 @@ func run():
 		$CanvasLayer/Output.text = run[1].display()
 
 func _ready():
+	$CanvasLayer.hide()
 	$CanvasLayer/Output.add_theme_font_size_override("font_size", 16)
 	$CanvasLayer/Button.connect("button_up", Callable(self, "run"))
 

@@ -12,6 +12,7 @@ var fsh_scene
 var settings = preload("res://scenes/settings.tscn") 
 var settings_scene 
 
+var karczma = preload("res://scenes/karczma.tscn") 
 #var map = preload()
 
 
@@ -19,10 +20,13 @@ var known_scenes = {
 	"intro": intro,
 	"player_room": player_room,
 	"world_map": world,
+	"karczma": karczma,
 }
 
 var global_data = {
 	"progress": 0,
+	"language": "en_US",
+	"username": "player",
 	"current_scene": null,
 }
 
@@ -32,7 +36,16 @@ var instance = true
 var current_scene
 var player
 func _ready():
+	$CanvasLayer/Task.add_theme_font_size_override("font_size", 20)
+	$CanvasLayer/Task.add_theme_color_override("font_color", Color.YELLOW)
 	load_game()
+
+var tick = 0
+func _process(delta):
+	if tick % 20 == 0 && global_data["progress"]!=0:
+		$CanvasLayer/Task.text = Translations.new().translations[global_data["language"]]["task"] + ":\n" + Translations.new().translations[global_data["language"]]["tasks." + str(global_data["progress"])]
+	tick += 1
+
 
 func ch_scene(scene: PackedScene):
 	if scene && scene.can_instantiate():
@@ -74,6 +87,16 @@ func load_game():
 		return
 	var save = FileAccess.open("user://save.json", FileAccess.READ)
 	var save_json = JSON.parse_string(save.get_as_text())
+	
+	
+	
+	
+	
+	global_data["language"] = save_json["language"]
+	global_data["username"] = save_json["username"]
+	global_data["progress"] = save_json["progress"]
+	
+	
 	for i in save_json["structure"]:
 		var new_object = load(save_json["structure"][i]["filename"]).instantiate()
 		for x in save_json["structure"][i].keys():

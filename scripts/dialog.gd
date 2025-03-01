@@ -8,7 +8,7 @@ var text = ""
 
 
 func _ready():
-	$CanvasLayer/Title.add_theme_font_size_override("font_size", 20)
+	#$CanvasLayer/Title.add_theme_font_size_override("font_size", 20)
 	#write("Jan Kowalski", "hello there!!!!!!!!!!")
 	$CanvasLayer/Ok.connect("button_up", Callable(self, "next"))
 
@@ -21,10 +21,16 @@ func dialog(p_data, p_player):
 		player.can_move = false
 	next()
 
+var callback
 func next():
+	if callback:
+		callback.call()
+		callback = null
 	if len(data)>0:
 		write(data[0][0], data[0][1])
 		$CanvasLayer/Portrait.texture = data[0][2]
+		if len(data[0])>3:
+			callback = data[0][3]
 		data.remove_at(0)
 	else:
 		if player:

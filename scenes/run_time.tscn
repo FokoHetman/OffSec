@@ -9,3 +9,12 @@ script = ExtResource("1_lcouq")
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(960, 540)
 script = ExtResource("2_54w3s")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Task" type="Label" parent="CanvasLayer"]
+offset_left = 1521.0
+offset_top = 72.0
+offset_right = 1605.0
+offset_bottom = 121.0
+scale = Vector2(2.81044, 1.88722)
