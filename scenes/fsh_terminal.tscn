@@ -9,20 +9,23 @@ script = ExtResource("1_fnnw2")
 
 [node name="Button" type="Button" parent="CanvasLayer"]
 offset_left = -1.0
-offset_top = 823.0
+offset_top = 912.0
 offset_right = 280.0
-offset_bottom = 905.0
+offset_bottom = 994.0
 theme_override_font_sizes/font_size = 50
 text = "Interpret"
 
 [node name="Input" type="TextEdit" parent="CanvasLayer"]
-offset_right = 1916.0
-offset_bottom = 815.0
+offset_left = -3.0
+offset_top = 483.0
+offset_right = 1913.0
+offset_bottom = 1298.0
+scale = Vector2(0.48, 0.506787)
 
 [node name="Output" type="Label" parent="CanvasLayer"]
-offset_left = 2.0
-offset_top = 907.0
-offset_right = 116.0
-offset_bottom = 973.0
+offset_left = 927.0
+offset_top = 481.0
+offset_right = 1041.0
+offset_bottom = 547.0
 scale = Vector2(2.47547, 1.01639)
 theme_override_font_sizes/font_size = 40

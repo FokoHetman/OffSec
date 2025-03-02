@@ -21,8 +21,16 @@ var translations = {
 		"outside.text2": "So what am I supposed to do?",
 		"outside.text3": "We need to stop the installer. \nIt disguised itself as a local wizard, in this village.",
 		"outside.text4": "How do we find him?",
-		"outside.text5": "I don't know, let's find the local inn.\nPeople there always have answers.",
+		"outside.text5": "I don't know, let's find the local tavern.\nPeople there always have answers.",
 		"outside.text6": "Oh BTW, I got you an FSH, a cool terminal tool.\nPress TAB anytime you like, and I'll explain everything.",
+		
+		"fsh.text1": "So, FSH is basically a programming language with cool utils.",
+		"fsh.text2": "Let's start with math, it can do basic operations\nlike 2+2, 2*17, 0.5*0.5 etc. Try it!",
+		"fsh.text3": "You can stack operations, like that:\na=15;b=a/5;b*3",
+		"fsh.text4": "Next, there is a matterializator.\nYou see that lantern mouse over hanging on your roof?\nTry running $LanternMouse.move 30 0",
+		"fsh.text5": "...",
+		"fsh.text6": "Okay, that'll be all for now.\nUse it whenever you need.",
+		"fsh.text7": "See ya in the Tavern!",
 
 		"helpful_spirit": "Helpful Spirit",
 		
@@ -30,12 +38,11 @@ var translations = {
 		
 		"tasks.0": "Listen to the\nhelpful spirit.",
 		"tasks.1": "Go outside.",
-		"tasks.2": "Go outside.",
-		"tasks.3": "Go outside.",
-		"tasks.4": "Go outside.",
-		"tasks.5": "Go outside.",
-		"tasks.6": "Go outside.",
-		"tasks.7": "Go outside.",
+		"tasks.2": "Press TAB.",
+		"tasks.3": "Find the\nTavern.",
+		"tasks.4": "Find the\nWizard Location.",
+		"tasks.5": "Find the\nWizard.",
+		"tasks.6": "Kill the \nWizard.",
 	},
 	
 	"pl_PL": {

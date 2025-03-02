@@ -40,7 +40,6 @@ func _ready():
 	if dialog_scene.can_instantiate():
 		var dialog = dialog_scene.instantiate()
 		add_child(dialog)
-		print(get_parent().global_data["progress"])
 		if get_parent().global_data["progress"]==1:
 			dialog.dialog([
 					[translations.translations[language]["helpful_spirit"], 
@@ -52,11 +51,16 @@ func _ready():
 					
 					[username, translations.translations[language]["outside.text4"], load("res://art/patyczak.png")],
 					
-					[translations.translations[language]["helpful_spirit"], translations.translations[language]["outside.text5"], load("res://art/portrait.png"),
-						Callable(self, "add_quest")],
+					[translations.translations[language]["helpful_spirit"], translations.translations[language]["outside.text5"], load("res://art/portrait.png")],
+					
+					[translations.translations[language]["helpful_spirit"], translations.translations[language]["outside.text6"], load("res://art/portrait.png"),
+						Callable(self, "add_quest")]
 				], get_parent().player)
 		else:
 			dialog.queue_free()
+
+func add_quest():
+	get_parent().global_data["progress"]+=1
 
 
 var avoid = true
