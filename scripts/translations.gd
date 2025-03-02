@@ -31,6 +31,14 @@ var translations = {
 		"fsh.text5": "...",
 		"fsh.text6": "Okay, that'll be all for now.\nUse it whenever you need.",
 		"fsh.text7": "See ya in the Tavern!",
+		
+		"tavern.text1": "Okay, so first: connect to the free WiFi. We'll need to listen for a bit.",
+		"tavern.text2": "Use `$FreeWiFi.raw_connect` to do that.",
+		
+		"tavern.text3": "Nice. Now, toggle monitor mode.\nYou need to use your wireless module, wlan0.",
+		"tavern.text4": "Just `$wlan0.monitor 1`.",
+		
+		"tavern.text5": "See! Now just display the website,\n `$Browser.search \"http://wizard.com/path?password=123\".\nGAME ENDS HERE, DUE TO LACK OF TIME TO DEV MORE.",
 
 		"helpful_spirit": "Helpful Spirit",
 		
@@ -40,8 +48,8 @@ var translations = {
 		"tasks.1": "Go outside.",
 		"tasks.2": "Press TAB.",
 		"tasks.3": "Find the\nTavern.",
-		"tasks.4": "Find the\nWizard Location.",
-		"tasks.5": "Find the\nWizard.",
+		"tasks.4": "Connect\nto WiFi",
+		"tasks.5": "Monitor.",
 		"tasks.6": "Kill the \nWizard.",
 	},
 	

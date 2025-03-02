@@ -1,6 +1,6 @@
 extends Node2D
 
-var delay = 0.1
+var delay = 0.07
 var cursor = 0
 var text = ""
 

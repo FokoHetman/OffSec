@@ -1,3 +1,34 @@
-[gd_scene format=3 uid="uid://ck6p05lo6ovi1"]
+[gd_scene load_steps=5 format=3 uid="uid://ck6p05lo6ovi1"]
+
+[ext_resource type="Script" path="res://scripts/karczma.gd" id="1_8xffj"]
+[ext_resource type="Texture2D" uid="uid://oi2m48q0lxhr" path="res://art/tavern.png" id="1_m2i6q"]
+[ext_resource type="Script" path="res://scenes/free_wifi.gd" id="3_aydji"]
+[ext_resource type="Script" path="res://scenes/wlan_0.gd" id="4_qv2gg"]
 
 [node name="Karczma" type="Node2D"]
+script = ExtResource("1_8xffj")
+
+[node name="Tavern" type="Sprite2D" parent="."]
+position = Vector2(995, 565)
+scale = Vector2(4.85648, 2.57742)
+texture = ExtResource("1_m2i6q")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(1908, 11, 8, 10, 8, 1073, 113, 1075, 114, 187, 1696, 185, 1697, 1070, 1914, 1072)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="StaticBody2D"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D/StaticBody2D"]
+polygon = PackedVector2Array(1007, 250, 1034, 469, 1128, 508, 1460, 508, 1529, 462, 1583, 256, 1524, 207, 1029, 203)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D/StaticBody2D"]
+polygon = PackedVector2Array(127, 1055, 1689, 1065, 1695, 1086, 130, 1079)
+
+[node name="FreeWiFi" type="Sprite2D" parent="."]
+position = Vector2(1183, 236)
+script = ExtResource("3_aydji")
+
+[node name="wlan0" type="Sprite2D" parent="."]
+script = ExtResource("4_qv2gg")
