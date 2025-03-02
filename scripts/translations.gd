@@ -53,6 +53,39 @@ var translations = {
 		"intro.priviledge_desc": "Ten parametr ustawia poziom trudności.\nRodzaj przywileji gracza w systemie globalnym.\nRoot jest równoznaczy z administratorem,\nUser zaś - z zwykłym użytkownikiem.",
 		"root": "Root",
 		"user": "Użytkownik",
+		
+		"player_room.text1": "Och, hej, żyjesz, player.",
+		"player_room.text2": "....co?",
+		"player_room.text3": "Uważam, że instalator wizard był zainfekowany.\n Wygląda na to, że zostałeś wybrany, aby być tym, który to powstrzyma.",
+		"player_room.text4": "..wizard? co, jak?",
+		"player_room.text5": "Wyjdźmy na zewnątrz, za chwilę wszystko wyjaśnię.",
+		
+		"outside.text1": "Okej, więc wygląda na to, że... Jesteś teraz w grze.\nInstalator gry był złośliwy, zamierzał to zrobić.",
+		"outside.text2": "Więc co mam teraz zrobić?",
+		"outside.text3": "Musimy zatrzymać instalator. \nPrzebrał się w tej wiosce za lokalnego czarodzieja.",
+		"outside.text4": "Jak go znajdziemy?",
+		"outside.text5": "Nie wiem, znajdźmy lokalną Karczmę.\nTamtejsi ludzie zawsze mają odpowiedzi.",
+		"outside.text6": "O tak przy okazji, mam dla ciebie FSH, fajne narzędzie terminalowe.\nNaciśnij TAB, kiedy tylko chcesz, a ja wszystko wyjaśnię.",
+		
+		"fsh.text1": "Tak więc FSH jest w zasadzie językiem programowania z fajnymi narzędziami.",
+		"fsh.text2": "Zacznijmy od matematyki, może wykonywać podstawowe operacje\njak 2 + 2, 2 * 17, 0,5 * 0,5 itd. Spróbuj!",
+		"fsh.text3": "Możesz kumulować operacje, w następujący sposób:\na=15; b=a/5; b*3",
+		"fsh.text4": "Dalej znajduje się matterializator.\nWidzisz tę latarnię wiszącą nad twoim dachem?\nSpróbuj odpalić $LanternMouse.move 30 0",
+		"fsh.text5": "...",
+		"fsh.text6": "Dobra, to na razie wszystko.\nKorzystaj z niego, kiedy tylko potrzebujesz.",
+		"fsh.text7": "Do zobaczenia w Karczmie!",
+
+		"helpful_spirit": "Pomocny duch",
+		
+		"task": "Zadanie",
+		
+		"tasks.0": "Posłuchaj\nPomocnego ducha.",
+		"tasks.1": "Wyjdź na dwór.",
+		"tasks.2": "Naciśnij TAB.",
+		"tasks.3": "Znajdź\nKarczmę.",
+		"tasks.4": "Znajdź\nLokalizację Czarodzieja.",
+		"tasks.5": "Znajdź\nCzarodzieja.",
+		"tasks.6": "Zabij\nCzarodzieja.",
 	}
 }
 
